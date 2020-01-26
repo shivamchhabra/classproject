@@ -1,0 +1,21 @@
+doctype html
+
+html(lang='en')
+  head
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css')
+  body
+   .container
+    h1.text-center.text-danger  Final AdressBook
+      table.table.table-striped.table-hover
+       tr
+         th.text-center Name
+         th.text-center Email
+         th.text-center password
+       each n in users
+        tr
+          td.text-center= n.name
+          td.text-center= n.email
+          td.text-center= n.password
+          
+          
+          

@@ -28,11 +28,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+//app.set("pages", path.join(__dirname, "pages"));
+app.set("view engine", "pug");
+
 let Users = require("./authentication/users");
 
-app.set("pages", path.join(__dirname, "pages"));
-app.set("view engine", "html");
-
+//login
 app.get("/", (req, res) => {
   fs.readFile("./pages/examlogin.html", null, (err, data) => {
     if (err) {
@@ -44,6 +45,22 @@ app.get("/", (req, res) => {
   });
 });
 
+app.post("/", (req, res) => {
+  Users.findOne(
+    { email: req.body.email, password: req.body.password },
+    (err, users) => {
+      if (users) {
+        console.log(users);
+        res.redirect("/AdressBook/users/" + users.id);
+      } else {
+        console.log("Wrong Credentials");
+        res.redirect("/");
+      }
+    }
+  );
+});
+
+//register
 app.get("/register", (req, res) => {
   fs.readFile("./pages/register.html", null, (err, data) => {
     if (err) {
@@ -55,28 +72,11 @@ app.get("/register", (req, res) => {
   });
 });
 
-app.get("/AdressBook", (req, res) => {
-  Users.find({}, (err, users) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render("./pages/AdressBook", {
-        users: users
-      });
-    }
-  });
-});
-
-app.post("/", (req, res) => {
-  res.redirect("/AdressBook");
-});
-
 app.post("/register", (req, res) => {
   let user = new Users();
   user.name = req.body.name;
   user.email = req.body.email;
   user.password = req.body.password;
-  //user.pno = req.body.pno;
 
   user.save(err => {
     if (err) {
@@ -84,6 +84,55 @@ app.post("/register", (req, res) => {
     } else {
       console.log(req.body.name);
       res.redirect("/AdressBook");
+    }
+  });
+});
+
+//singleAdress showcase
+app.get("/AdressBook/users/:id", (req, res) => {
+  Users.findById(req.params.id, (err, users) => {
+    console.log("work");
+    res.render(__dirname + "/pages/singleadress.pug", {
+      users: users
+    });
+  });
+});
+
+//update user
+app.get("/AdressBook/users/update/:id", (req, res) => {
+  Users.findById(req.params.id, (err, users) => {
+    res.render(__dirname + "/pages/update.pug", {
+      users: users
+    });
+  });
+});
+
+app.post("/AdressBook/users/update/:id", (req, res) => {
+  let user = {};
+  user.name = req.body.name;
+  user.email = req.body.email;
+  user.password = req.body.password;
+
+  let query = { _id: req.params.id };
+
+  Users.update(query, user, err => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(req.body.name);
+      res.redirect("/AdressBook");
+    }
+  });
+});
+
+//final AdressBook
+app.get("/AdressBook", (req, res) => {
+  Users.find({}, (err, users) => {
+    if (err) {
+      console.log(err);
+    } else {
+      //console.log(users);
+      res.render(__dirname + "/pages/AdressBook.pug", { users: users });
     }
   });
 });

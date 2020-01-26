@@ -10,7 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bootstrap": "^4.4.1",
     "express": "^4.17.1",
-    "mongoose": "^5.8.9"
+    "html": "^1.0.0",
+    "mongoose": "^5.8.9",
+    "pug": "^2.0.4"
   }
 }

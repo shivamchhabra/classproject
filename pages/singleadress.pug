@@ -1,0 +1,18 @@
+doctype html
+
+html(lang='en')
+  head
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css')
+  body
+   .container
+      table.table.table-striped.table-hover
+       tr
+         th Name
+         th Email
+         th password
+       tr
+          td= users.name
+          td= users.email
+          td= users.password
+      a.btn.btn-primary(href="/AdressBook/users/update/"+users.id) Edit   
+          

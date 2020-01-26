@@ -1,0 +1,18 @@
+doctype html
+html
+head
+  link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css')
+body
+.bg-dark
+ .container
+  form(method='POST', action='/AdressBook/users/update/'+users.id)
+   #form-group
+    label Name:
+    input.form-control(name='name', type='text' value=users.name)
+   #form-group
+    label Email:
+    input.form-control(name='email', type='text' value=users.email)
+   #form-group
+    label Password:
+    textarea.form-control(name='password', type='text' value=users.password)
+   input.btn.btn-primary(type="submit", value='Submit')
