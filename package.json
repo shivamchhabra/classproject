@@ -1,0 +1,16 @@
+{
+  "name": "examfinal",
+  "version": "1.0.0",
+  "description": "for exam purpose",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app",
+    "dev": "nodemon app"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.8.9"
+  }
+}
