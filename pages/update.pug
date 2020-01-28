@@ -2,8 +2,8 @@ doctype html
 html
 head
   link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css')
-body
-.bg-dark
+  script(src='/javascript.js')
+body 
  .container
   form(method='POST', action='/AdressBook/users/update/'+users.id)
    #form-group
@@ -15,4 +15,7 @@ body
    #form-group
     label Password:
     textarea.form-control(name='password', type='text' value=users.password)
-   input.btn.btn-primary(type="submit", value='Submit')
+   input.btn.btn-primary(type="submit", value='Submit') 
+   - var id=users.id;
+ div
+  button(type='button' class='btn btn-danger' onclick="myfun(id)") Delete

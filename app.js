@@ -125,6 +125,19 @@ app.post("/AdressBook/users/update/:id", (req, res) => {
   });
 });
 
+app.delete("/AdressBook/users/update/:id", (req, res) => {
+  let query = { _id: req.params.id };
+
+  Users.deleteOne(query, err => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("working");
+      res.redirect("/AdressBook");
+    }
+  });
+});
+
 //final AdressBook
 app.get("/AdressBook", (req, res) => {
   Users.find({}, (err, users) => {
